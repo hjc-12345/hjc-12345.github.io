@@ -103,7 +103,7 @@
   <div class="post-content-outer">
     <div class="post-intro">
       <div class="post-title animate__animated  animate__fadeInUp">Spark基础配置</div>
-      <div class="meta-intro animate__animated  animate__fadeInUp">May 17 2022</div>
+      <div class="meta-intro animate__animated  animate__fadeInUp">May 23 2022</div>
       
     </div>
     <div class="post-content-inner">
@@ -124,7 +124,7 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./hjc1/7.png" >
+           data-src="https://github.com/hjc-12345/hjc-12345.github.io/blob/main/2022/05/23/hjc1/7.png" >
         </sapn>
       </p>
 <p><em><strong>*二、安装配置jdk*</strong></em></p>
@@ -132,7 +132,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /export/server</span><br></pre></td></tr></table></figure>
 
 <p>\2. 上传jdk-8u65-linux-x64.tar.gz到&#x2F;export&#x2F;server&#x2F;目录并解压</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rz</span><br><span class="line"></span><br><span class="line">tar -zxvf jdk-8u65-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rz</span><br><span class="line"></span><br><span class="line">tar -zxvf jdk-8u241-linux-x64.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p>\3. 配置环境变量</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
@@ -141,7 +141,7 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./hjc1/8.png" >
+           data-src="https://github.com/hjc-12345/hjc-12345.github.io/blob/main/2022/05/23/hjc1/8.png" >
         </sapn>
       </p>
 <p>\4. 重新加载环境变量文件</p>
@@ -152,53 +152,75 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./hjc1/1.png" >
+           data-src="https://github.com/hjc-12345/hjc-12345.github.io/blob/main/2022/05/17/hjc1/1.png" >
         </sapn>
       </p>
-<p>\6. 将java由node1分发到node2、node3</p>
+<p>\6. 使用scp拷贝jdk到node2、node3</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp -r /export/server/jdk1.8.0_241/ root@node2:/export/server</span><br><span class="line"></span><br><span class="line">scp -r /export/server/jdk1.8.0_241/ root@node3:/export/server</span><br></pre></td></tr></table></figure>
 
-<p>\7. 配置node2、node3的环境变量文件（方法如上）</p>
+<p>\7. 使用scp拷贝profile到node2、node3</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp /etc/profile root@node2:/etc/</span><br><span class="line">scp /etc/profile root@node3:/etc/</span><br></pre></td></tr></table></figure>
 <p>\8. 在node1、node2、node3中创建软连接（三台都需要操作）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/</span><br><span class="line"></span><br><span class="line">ln -s jdk1.8.0_241/ jdk</span><br></pre></td></tr></table></figure>
 
 <p><em><strong>*三、Hadoop安装配置*</strong></em></p>
 <p>\1. 上传hadoop-3.3.0-Centos7-64-with-snappy.tar.gz 到 &#x2F;export&#x2F;server 并解压文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-3.3.0-Centos7-64-with-snappy.tar.gz</span><br></pre></td></tr></table></figure>
-
+<p>\删除Hadoop安装包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -rf hadoop-3.3.0-Centos7-64-with-snappy.tar.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>\设置软链接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /export/server/hadoop-3.3.0/ /export/server/hadoop</span><br></pre></td></tr></table></figure>
 <p>\2. 修改配置文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/hadoop-3.3.0/etc/hadoop</span><br></pre></td></tr></table></figure>
 
 <p>- hadoop-env.sh</p>
 <p>  #文件最后添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim hadoop-env.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/export/server/jdk1.8.0_241</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"> export HDFS_NAMENODE_USER=root</span><br><span class="line"></span><br><span class="line"> export HDFS_DATANODE_USER=root</span><br><span class="line"></span><br><span class="line"> export HDFS_SECONDARYNAMENODE_USER=root</span><br><span class="line"></span><br><span class="line"> export YARN_RESOURCEMANAGER_USER=root</span><br><span class="line"></span><br><span class="line"> export YARN_NODEMANAGER_USER=root </span><br></pre></td></tr></table></figure>
 
 <p>- core-site.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim core-site.xml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 设置默认使用的文件系统 Hadoop支持file、HDFS、GFS、ali|Amazon云等文件系统 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;hdfs://node1:8020&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 设置Hadoop本地保存数据路径 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;/export/data/hadoop-3.3.0&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 设置HDFS web UI用户身份 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;hadoop.http.staticuser.user&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;root&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 整合hive 用户代理设置 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;hadoop.proxyuser.root.hosts&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;*&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;hadoop.proxyuser.root.groups&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;*&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 文件系统垃圾桶保存时间 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;fs.trash.interval&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;1440&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br></pre></td></tr></table></figure>
 
 <p>- hdfs-site.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim hdfs-site.xml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  &lt;!-- 设置SNN进程运行机器位置信息 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;node2:9868&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
 
 <p>- mapred-site.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim mapred-site.xml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"> &lt;!-- 设置MR程序默认运行模式： yarn集群模式 local本地模式 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">   &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">   &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- MR程序历史服务地址 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">   &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">   &lt;value&gt;node1:10020&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">  &lt;!-- MR程序历史服务器web端地址 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">   &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">   &lt;value&gt;node1:19888&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">   &lt;name&gt;yarn.app.mapreduce.am.env&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">   &lt;value&gt;HADOOP_MAPRED_HOME=$&#123;HADOOP_HOME&#125;&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">   &lt;name&gt;mapreduce.map.env&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">   &lt;value&gt;HADOOP_MAPRED_HOME=$&#123;HADOOP_HOME&#125;&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">   &lt;name&gt;mapreduce.reduce.env&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">   &lt;value&gt;HADOOP_MAPRED_HOME=$&#123;HADOOP_HOME&#125;&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
 
 <p>- yarn-site.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim yarn-site.xml</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"> &lt;!-- 设置YARN集群主角色运行机器位置 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">  	&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</span><br><span class="line">  	</span><br><span class="line">  	&lt;value&gt;node1&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line"> 	&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line"></span><br><span class="line"> 	&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 是否将对容器实施物理内存限制 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;yarn.nodemanager.pmem-check-enabled&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;false&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 是否将对容器实施虚拟内存限制。 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;false&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 开启日志聚集 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">  	&lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">  	&lt;value&gt;true&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 设置yarn历史服务器地址 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">	&lt;name&gt;yarn.log.server.url&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">	&lt;value&gt;http://node1:19888/jobhistory/logs&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  &lt;!-- 历史日志保存的时间 7天 --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line"></span><br><span class="line">   &lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;</span><br><span class="line"></span><br><span class="line">   &lt;value&gt;604800&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
 
 <p> - workers</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">node1.itcast.cn</span><br><span class="line"></span><br><span class="line">node2.itcast.cn</span><br><span class="line"></span><br><span class="line">node3.itcast.cn </span><br></pre></td></tr></table></figure>
 
-<p>\3. 将node1的hadoop-3.3.0分发到node2、node3</p>
+<p>\3. 使用scp将node1的hadoop-3.3.0分发到node2、node3</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server</span><br><span class="line"></span><br><span class="line">scp -r /export/server/hadoop-3.3.0 root@node2:$PWD</span><br><span class="line"></span><br><span class="line">scp -r /export/server/hadoop-3.3.0 root@node3:$PWD</span><br></pre></td></tr></table></figure>
 
 <p>\4. 将hadoop添加到环境变量</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME=/export/server/hadoop-3.3.0</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</span><br></pre></td></tr></table></figure>
-
+<p>\一键启动yarn</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-yarn.sh</span><br></pre></td></tr></table></figure>
+<p>\脚本一键启动dfs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start-dfs.sh </span><br></pre></td></tr></table></figure>
 <p>\5. 重新加载环境变量文件</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-
+<p>\6.创建input文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir /input</span><br></pre></td></tr></table></figure>
+<p>\7.将works添加到文件夹中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -put words.txt /input</span><br></pre></td></tr></table></figure>
+<p>\8.测试命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.textFile(&quot;hdfs://node1:8020/input/words.txt&quot;).flatMap(lambda line: line.split(&quot; &quot;)) .map(lambda x: (x, 1)) .reduceByKey(lambda a, b: a + b) .collect()</span><br></pre></td></tr></table></figure>
 <p>\6. Hadoop集群启动</p>
 <p>（1）格式化namenode（只有首次启动需要格式化）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs namenode -format</span><br></pre></td></tr></table></figure>
@@ -207,7 +229,7 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./hjc1/2.png" >
+           data-src="https://github.com/hjc-12345/hjc-12345.github.io/blob/main/2022/05/23/hjc1/2.png" >
         </sapn>
        </p>
 <p>\7. WEB界面</p>
@@ -256,26 +278,26 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./hjc1/3.png" >
+           data-src="https://github.com/hjc-12345/hjc-12345.github.io/blob/main/2022/05/23/hjc1/3.png" >
         </sapn>
        </p>
 <p>(10) 查看zookeeper状态</p>
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./hjc1/4.png" >
+           data-src="https://github.com/hjc-12345/hjc-12345.github.io/blob/main/2022/05/23/hjc1/4.png" >
         </sapn>
        </p>
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./hjc1/5.png" >
+           data-src="https://github.com/hjc-12345/hjc-12345.github.io/blob/main/2022/05/23/hjc1/5.png" >
         </sapn>
        </p>
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./hjc1/6.png" >
+           data-src="https://github.com/hjc-12345/hjc-12345.github.io/blob/main/2022/05/23/hjc1/6.png" >
         </sapn>
       </p>
 
