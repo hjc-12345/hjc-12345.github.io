@@ -155,25 +155,41 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./three/1.png" >
+           data-src="/../image/hjc3/1.png" >
         </sapn>
-       </p>
+      </p>
 <p><em><strong>*八、Spark-yarn模式*</strong></em></p>
 <p>1、启动yarn的历史服务器，jps看进程</p>
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./three/2.png" >
+           data-src="/../image/hjc3/2.png" >
         </sapn>
-       </p>
+      </p>
 <p>2、在yarn上启动pyspark</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/export/server/spark/bin/pyspark --master yarn</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./three/3.png" >
+           data-src="/../image/hjc3/5.png" >
         </sapn>
-       </p>
-<p>3、Spark on yarn的运行测试（client模式和cluster模式）</p>
+      </p>
+<p>3、Spark on yarn的运行测试（client模式和cluster模式）<br>client模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/export/server/spark/bin/spark-submit --master yarn --deploy-mode client --driver-memory 512m --executor-memory 512m --num-executors 3 --total-executor-cores 3 /export/server/spark/examples/src/main/python/pi.py 3</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc3/3.png" >
+        </sapn>
+      <br>cluster模式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/export/server/spark/bin/spark-submit --master yarn --deploy-mode client --driver-memory 512m --executor-memory 512m --num-executors 3 --total-executor-cores 3 /export/server/spark/examples/src/main/python/pi.py 3</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc3/4.png" >
+        </sapn>
+      </p>
 
         <!-- 分类文章 -->
         
