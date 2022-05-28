@@ -124,9 +124,9 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./two/1.png" >
+           data-src="/../image/hjc2/1.png" >
         </sapn>
-       </p>
+      </p>
 <p>看到base就表示安装完成了</p>
 <p>\4. 创建虚拟环境pyspark基于python3.8</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n pyspark python=3.8</span><br></pre></td></tr></table></figure>
@@ -137,9 +137,9 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./two/2.png" >
+           data-src="/../image/hjc2/2.png" >
         </sapn>
-       </p>
+      </p>
 <p>\6. 在虚拟环境内安装包</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyhive pyspark jieba -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
 
@@ -154,35 +154,37 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./two/3.png" >
+           data-src="/../image/hjc2/3.png" >
         </sapn>
-      <br>\配置PYSPARK_PYTHON和 JAVA_HOME在 &#x2F;root&#x2F;.bashrc</p>
+      </p>
+<p>\配置PYSPARK_PYTHON和 JAVA_HOME在 &#x2F;root&#x2F;.bashrc</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /root/.bashrc</span><br></pre></td></tr></table></figure>
 
 <p>内容添加进去： </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#JAVA_HOME </span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/export/server/jdk1.8.0_241 </span><br><span class="line"></span><br><span class="line">#PYSPARK_PYTHON </span><br><span class="line"></span><br><span class="line">export PYSPARK_PYTHON=/export/server/anaconda3/envs/pyspark/bin/python </span><br></pre></td></tr></table></figure>
-
-<p>\10. 重新加载环境变量</p>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc2/4.png" >
+        </sapn>
+      <br>\10. 重新加载环境变量</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
 
 <p>\11. 开启spark</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/anaconda3/ens/pyspark/bin/</span><br><span class="line"></span><br><span class="line">./pyspark</span><br></pre></td></tr></table></figure>
-<p>\12.spark命令测试</p>
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./two/4.png" >
+           data-src="/../image/hjc2/5.png" >
+        </sapn>
+      <br>\12.spark命令测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.parallelize([1,2,3,4,5]).map(lambda x: x *10).collect()</span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc2/6.png" >
         </sapn>
       </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.parallelize([1,2,3,4,5]).map(lambda x: x *10).collect()</span><br></pre></td></tr></table></figure>
-<p>\13.spark命令测试2</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spark-submit --master local[*] /export/server/spark/examples/src/main/python/pi.py 10</span><br></pre></td></tr></table></figure>
-<p>
-        <span class="lazyload-img-span">
-        <img   
-           data-src="/./two/5.png" >
-        </sapn>
-       </p>
 <p>\13.spark-shell命令测试</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc.parallelize(Array(1,2,3,4,5)).map(x =&gt; x*10).collect()</span><br></pre></td></tr></table></figure>
 <p>\14.退出</p>
@@ -210,10 +212,9 @@
 <p>
         <span class="lazyload-img-span">
         <img   
-           data-src="/./two/6.png" >
+           data-src="/../image/hjc2/2.png" >
         </sapn>
-       </p>
-<p>\5. 在虚拟环境内安装包</p>
+      <br>\5. 在虚拟环境内安装包</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyhive pyspark jieba -i https://pypi.tuna.tsinghua.edu.cn/simple </span><br></pre></td></tr></table></figure>
 <p>\重命名workers</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv workers.template workers</span><br></pre></td></tr></table></figure>
@@ -251,12 +252,8 @@
 <p> -配置log4j.properties</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim log4j.properties</span><br></pre></td></tr></table></figure>
 
-<p> 
-        <span class="lazyload-img-span">
-        <img   
-           data-src="/./two/7.png" >
-        </sapn>
-      </p>
+
+
 <p>\8. 将node1的spark分发到node2、node3</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/</span><br><span class="line"></span><br><span class="line">scp -r /export/server/spark-3.2.0-bin-hadoop3.2/ node2:$PWD</span><br><span class="line"></span><br><span class="line">scp -r /export/server/spark-3.2.0-bin-hadoop3.2/ node3:$PWD</span><br></pre></td></tr></table></figure>
 
@@ -270,12 +267,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/spark/sbin</span><br><span class="line"></span><br><span class="line">./start-history-server.sh</span><br></pre></td></tr></table></figure>
 
 <p>\12. 访问WebUI界面（<a target="_blank" rel="noopener" href="http://node1:18080/%EF%BC%89">http://node1:18080/）</a></p>
-<p>
-        <span class="lazyload-img-span">
-        <img   
-           data-src="/./two/8.png" >
-        </sapn>
-       </p>
 <p>\13. 启动Spark的Master和Worker</p>
 <p>\spark全部启动</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./start-all.sh</span><br></pre></td></tr></table></figure>
