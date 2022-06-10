@@ -114,6 +114,59 @@
         <!-- top型目录 -->
         
         <p><em><strong>*一、Kafka命令行*</strong></em> </p>
+<p>#创建topic</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --list --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc5/1.png" >
+        </sapn>
+      </p>
+<p>#检查创建是否成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --topic tpc_1 --partitions 2 --replication-factor 2 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+<p>#进入zookeeper client</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /export/server/zookeeper</span><br><span class="line">bin/zkCli.sh</span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc5/2.png" >
+        </sapn>
+      </p>
+<p>#查看kafka-logs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll /export/data/kafka-logs</span><br></pre></td></tr></table></figure>
+<p>#删除topic</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh  --delete --topic tpc_1 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc5/3.png" >
+        </sapn>
+      </p>
+<p>#重新创建topic</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --create --topic tpc_1   --zookeeper node1:2181 --replica-assignment 0:1,1:2</span><br></pre></td></tr></table></figure>
+<p>#查看topic情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --describe --topic tpc_1 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc5/4.png" >
+        </sapn>
+      </p>
+<p>#增加分区数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --alter --topic tpc_1 --partitions 3 --zookeeper node1:2181</span><br></pre></td></tr></table></figure>
+<p>#修改参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-configs.sh --zookeeper node1:2181 --entity-type topics --entity-name tpc_1 --alter --add-config compression.type=gzip</span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc5/5.png" >
+        </sapn>
+      </p>
+<p>#生产者输入数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./kafka-console-producer.sh --broker-list node1:9092, node2:9092, node3:9092 --topic tpc_1</span><br></pre></td></tr></table></figure>
+
+<p>#消费者获取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./kafka-console-consumer.sh --bootstrap-server node1:9092, node2:9092, node1:9092 --topic tpc_1 --from-beginning</span><br></pre></td></tr></table></figure>
 
         <!-- 分类文章 -->
         
