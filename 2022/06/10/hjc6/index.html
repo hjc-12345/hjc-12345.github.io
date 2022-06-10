@@ -1,0 +1,214 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>  KafkaAPI使用方法 |    white.</title>
+  <meta name="description" content="A minimalist theme for hexo.">
+  <!-- 标签页图标 -->
+  
+
+  <!-- 图标库 -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+  <!-- 动画库 -->
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fushaolei/cdn-white@1.0/css/animate.css"/>
+  
+  <!-- css文件 -->
+  
+<link rel="stylesheet" href="/css/white.css">
+
+  <!-- 代码高亮 -->
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+
+<div class="menu-outer">
+    <div class="menu-inner">
+      <div class="menu-site-name  animate__animated  animate__fadeInUp">
+        <a href="/">
+          white.
+        </a>
+        
+      </div>
+      <div class="menu-group">
+        <ul class="menu-ul">
+        
+          <a href="/" class="nav-link">
+            <li class="menu-li  animate__animated  animate__fadeInUp">
+              HOME
+            </li>
+          </a>
+        
+          <a href="/archives" class="nav-link">
+            <li class="menu-li  animate__animated  animate__fadeInUp">
+              BLOG
+            </li>
+          </a>
+        
+        
+        
+          <li class="menu-li animate__animated  animate__fadeInUp" id="mobile-menu">
+            <i class="ri-menu-line"></i>
+          </li>
+        
+        </ul>
+
+      </div>
+
+    </div>
+</div>
+<div id="mobile-main" class="animate__animated  animate__fadeIn">
+  <div class="mobile-menu-inner">
+    <div class="mobile-menu-site-name animate__animated  animate__fadeInUp">
+      <a href="/">
+        white.
+      </a>
+    </div>
+    <div class="mobile-menu-group" id="mobile-close">
+      <i class="ri-close-line"></i>
+    </div>
+
+  </div>
+
+  <div class="mobile-menu-div">
+  
+    <a href="/" class="mobile-nav-link">
+      <div class="mobile-menu-child animate__animated  animate__fadeInUp">
+        <span>HOME</span>
+      </div>
+    </a>
+  
+    <a href="/archives" class="mobile-nav-link">
+      <div class="mobile-menu-child animate__animated  animate__fadeInUp">
+        <span>BLOG</span>
+      </div>
+    </a>
+  
+  
+  </div>
+
+
+</div>
+
+<div class="body-outer">
+  <div class="body-inner">
+    
+<article class="post-inner">
+  <div class="post-content-outer">
+    <div class="post-intro">
+      <div class="post-title animate__animated  animate__fadeInUp">KafkaAPI使用方法</div>
+      <div class="meta-intro animate__animated  animate__fadeInUp">Jun 10 2022</div>
+      
+    </div>
+    <div class="post-content-inner">
+      <div class="post-content-inner-space">
+
+      </div>
+      <div class="post-content-main animate__animated  animate__fadeInUp">
+        <!-- top型目录 -->
+        
+        <p><em><strong>*一、Kafka API*</strong></em><br>#需要用到专业版IDE</p>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc6/2.png" >
+        </sapn>
+      </p>
+<p>.一、producer API<br>.1、异步发送</p>
+<p>#创建一个3副本5分区的名称为consumer的topic</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-topics.sh --zookeeper hadoop100:2181/kafka --create --replication-factor 3 --partitions 1 --topic consumer</span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop100:2181/kafka --alter --topic consumer --partitions 5</span><br></pre></td></tr></table></figure>
+
+<p>#使用kafka需引入依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc6/1.png" >
+        </sapn>
+      </p>
+<p>#producer代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">package ccjz_rgzn_kafka;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import org.apache.commons.lang3.RandomStringUtils;</span><br><span class="line">import org.apache.kafka.clients.producer.KafkaProducer;</span><br><span class="line">import org.apache.kafka.clients.producer.ProducerConfig;</span><br><span class="line">import org.apache.kafka.clients.producer.ProducerRecord;</span><br><span class="line">import org.apache.kafka.common.serialization.StringSerializer;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author wyf</span><br><span class="line"> * @create 2022-04-01 13:06</span><br><span class="line"> */</span><br><span class="line">public class ProducerDemo</span><br><span class="line">&#123;</span><br><span class="line">    private static final String SERVERS = &quot;node1:9092,node2:9092,node3:9092&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 配置生产者的参数</span><br><span class="line">     *</span><br><span class="line">     * @param args</span><br><span class="line">     * @throws IOException</span><br><span class="line">     */</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws IOException</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        Properties pros = new Properties();</span><br><span class="line"></span><br><span class="line">        //配置方式1：容易将参数的名称写错</span><br><span class="line">//        pros.load(ProducerDemo.class.getClassLoader().getResourceAsStream(&quot;client.properties&quot;));</span><br><span class="line">//</span><br><span class="line">//        pros.put(&quot;bootstrap.servers&quot;, &quot;node1:9092,node2:9092,node3:9092&quot;);</span><br><span class="line"></span><br><span class="line">        //配置方法2：利用常用类，去进行配置，不容易写错参数，比较容易记忆</span><br><span class="line">        pros.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, SERVERS);</span><br><span class="line">        pros.put(ProducerConfig.ACKS_CONFIG, &quot;all&quot;);</span><br><span class="line">//        pros.put(ProducerConfig.RETRIES_CONFIG, 3);</span><br><span class="line">//        pros.put(ProducerConfig.BATCH_SIZE_CONFIG, 10);</span><br><span class="line">//        pros.put(ProducerConfig.LINGER_MS_CONFIG, 10000);</span><br><span class="line">//        pros.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, 10);</span><br><span class="line">//        pros.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 1024);</span><br><span class="line">        pros.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line">        pros.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line"></span><br><span class="line">        //关闭kafka幂等性的功能</span><br><span class="line">        pros.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, &quot;false&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 步骤2.创建相应的生产者实例</span><br><span class="line">         *</span><br><span class="line">         */</span><br><span class="line">        KafkaProducer&lt;String, String&gt; producer = new KafkaProducer&lt;&gt;(pros);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 步骤3.构建待发送的消息</span><br><span class="line">         *</span><br><span class="line">         */</span><br><span class="line">        for(int i = 0; i &lt; 10; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            ProducerRecord&lt;String, String&gt; msg = new ProducerRecord&lt;&gt;(&quot;tpc_1&quot;, &quot;name&quot; + i, &quot;bigdata19-&quot; + i);</span><br><span class="line">            producer.send(msg);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /**</span><br><span class="line">         * 步骤5.关闭</span><br><span class="line">         */</span><br><span class="line"></span><br><span class="line">        producer.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>#开启消费者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --bootstrap-server hadoop102:9092 --from-beginning --topic consumer</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>.2、同步发送API</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package ccjz_rgzn_kafka;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import org.apache.kafka.clients.producer.*;</span><br><span class="line">import scala.Int;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class CustomProducer &#123;</span><br><span class="line">    public static void main(String[] args)throws ExecutionException, InterruptedException&#123;</span><br><span class="line">        Properties props = new Properties();</span><br><span class="line">        props.put(&quot;bootstrap.servers&quot;, &quot;hadoop100:9092&quot;);</span><br><span class="line">        props.put(&quot;acks&quot;, &quot;all&quot;);</span><br><span class="line">        props.put(&quot;retries&quot;, 1);</span><br><span class="line">        props.put(&quot;batch.size&quot;, 16384);</span><br><span class="line">        props.put(&quot;linger.ms&quot;, 1);</span><br><span class="line">        props.put(&quot;buffer.memory&quot;, 33553332);</span><br><span class="line">        props.put(&quot;key.serializer&quot;, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);</span><br><span class="line">        props.put(&quot;value.serializer&quot;, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);</span><br><span class="line">        </span><br><span class="line">        Producer&lt;String, String&gt; producer = new KafkaProducer&lt;String, String&gt;(props);</span><br><span class="line">        </span><br><span class="line">        for(int i = 0; i &lt; 20; i++)&#123;</span><br><span class="line">            producer.send(new ProducerRecord&lt;String, String&gt;(&quot;consumer&quot;, Integer.toString(i), &quot;test-&quot; + Integer.toString(i)), new Callback() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void onCompletion(RecordMetadata recordMetadata, Exception e) &#123;</span><br><span class="line">                    if(e == null)&#123;</span><br><span class="line">                        System.out.println(&quot;SUCCESS -&gt; &quot; + recordMetadata.offset() + &quot;:&quot; + recordMetadata.partition());</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).get();</span><br><span class="line">        &#125;</span><br><span class="line">        producer.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>.二、consumer API</p>
+<p>#需引入依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.kafka&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;kafka-clients&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>#自动提交offset</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package ccjz_rgzn_kafka;</span><br><span class="line"></span><br><span class="line">import org.apache.kafka.clients.consumer.ConsumerRecord;</span><br><span class="line">import org.apache.kafka.clients.consumer.ConsumerRecords;</span><br><span class="line">import org.apache.kafka.clients.consumer.KafkaConsumer;</span><br><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class CustomConsumer &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Properties props = new Properties();</span><br><span class="line">        props.put(&quot;bootstrap.servers&quot;, &quot;hadoop102:9092&quot;);</span><br><span class="line">        props.put(&quot;group.id&quot;, &quot;test&quot;);</span><br><span class="line">        props.put(&quot;enable.auto.commit&quot;, &quot;true&quot;);</span><br><span class="line">        props.put(&quot;auto.commit.interval.ms&quot;, &quot;1000&quot;);</span><br><span class="line">        props.put(&quot;key.deserializer&quot;, &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);</span><br><span class="line">        props.put(&quot;value.deserializer&quot;, &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);</span><br><span class="line">        KafkaConsumer&lt;String, String&gt; consumer = new KafkaConsumer&lt;&gt;(props);</span><br><span class="line">        consumer.subscribe(Arrays.asList(&quot;first&quot;));</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            ConsumerRecords&lt;String, String&gt; records = consumer.poll(100);</span><br><span class="line">            for (ConsumerRecord&lt;String, String&gt; record : records)</span><br><span class="line">                System.out.printf(&quot;offset = %d, key = %s, value = %s%n&quot;, record.offset(), record.key(), record.value());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>#手动提交</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">package ccjz_rgzn_kafka.consumer;</span><br><span class="line"></span><br><span class="line">import org.apache.kafka.clients.consumer.ConsumerRecord;</span><br><span class="line">import org.apache.kafka.clients.consumer.ConsumerRecords;</span><br><span class="line">import org.apache.kafka.clients.consumer.KafkaConsumer;</span><br><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class CustomComsumer &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        Properties props = new Properties();</span><br><span class="line">        props.put(&quot;bootstrap.servers&quot;, &quot;hadoop102:9092&quot;);</span><br><span class="line">        props.put(&quot;group.id&quot;, &quot;test&quot;);</span><br><span class="line">        props.put(&quot;enable.auto.commit&quot;, &quot;false&quot;);</span><br><span class="line">        props.put(&quot;key.deserializer&quot;, &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);</span><br><span class="line">        props.put(&quot;value.deserializer&quot;, &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);</span><br><span class="line"></span><br><span class="line">        KafkaConsumer&lt;String, String&gt; consumer = new KafkaConsumer&lt;&gt;(props);</span><br><span class="line">        consumer.subscribe(Arrays.asList(&quot;first&quot;));</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            ConsumerRecords&lt;String, String&gt; records = consumer.poll(100);</span><br><span class="line">            for (ConsumerRecord&lt;String, String&gt; record : records) &#123;</span><br><span class="line">                System.out.printf(&quot;offset = %d, key = %s, value = %s%n&quot;, record.offset(), record.key(), record.value());</span><br><span class="line">            &#125;</span><br><span class="line">            consumer.commitSync();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>#异步提交</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">package com.atguigu.kafka.consumer;</span><br><span class="line"></span><br><span class="line">import org.apache.kafka.clients.consumer.*;</span><br><span class="line">import org.apache.kafka.common.TopicPartition;</span><br><span class="line"></span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class CustomConsumer &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line"></span><br><span class="line">        Properties props = new Properties();</span><br><span class="line">        props.put(&quot;bootstrap.servers&quot;, &quot;hadoop102:9092&quot;);</span><br><span class="line">        props.put(&quot;group.id&quot;, &quot;test&quot;);</span><br><span class="line">        props.put(&quot;enable.auto.commit&quot;, &quot;false&quot;);</span><br><span class="line">        props.put(&quot;key.deserializer&quot;, &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);</span><br><span class="line">        props.put(&quot;value.deserializer&quot;, &quot;org.apache.kafka.common.serialization.StringDeserializer&quot;);</span><br><span class="line"></span><br><span class="line">        KafkaConsumer&lt;String, String&gt; consumer = new KafkaConsumer&lt;&gt;(props);</span><br><span class="line">        consumer.subscribe(Arrays.asList(&quot;first&quot;));</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            ConsumerRecords&lt;String, String&gt; records = consumer.poll(100);</span><br><span class="line">            for (ConsumerRecord&lt;String, String&gt; record : records) &#123;</span><br><span class="line">                System.out.printf(&quot;offset = %d, key = %s, value = %s%n&quot;, record.offset(), record.key(), record.value());</span><br><span class="line">            &#125;</span><br><span class="line">            consumer.commitAsync(new OffsetCommitCallback() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void onComplete(Map&lt;TopicPartition, OffsetAndMetadata&gt; offsets, Exception exception) &#123;</span><br><span class="line">                    if (exception != null) &#123;</span><br><span class="line">                        System.err.println(&quot;Commit failed for&quot; + offsets);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>#API发送实例</p>
+<p>
+        <span class="lazyload-img-span">
+        <img   
+           data-src="/../image/hjc6/3.png" >
+        </sapn>
+      </p>
+
+        <!-- 分类文章 -->
+        
+      </div>
+      <div class="post-content-inner-space">
+        
+      </div>
+   </div>
+    <!-- 评论 -->
+    
+  </div>
+</article>
+  </div>
+</div>
+
+
+
+<!-- 如果是home模式的话，不在首页就显示footer，如果不是home模式的话 所有都显示footer -->
+
+  <div class="footer-outer animate__animated  animate__fadeInUp">
+    <div class="footer-inner">
+    <div class="footer-text">
+    <p>Power by <a target="_blank" rel="noopener" href="http://hexo.io/">Hexo</a> Theme by <a target="_blank" rel="noopener" href="https://github.com/FuShaoLei/hexo-theme-white">White</a></p>
+
+    </div>
+    <div class="footer-contact">
+    <ul class="footer-ul">
+        
+        <li class="footer-li">
+            <a href="https://github.com/FuShaoLei/hexo-theme-white" target="_blank">
+                <i class="ri-github-line"></i>
+            </a>
+        </li>
+        
+        <li class="footer-li">
+            <a href="mailto:1563250958@qq.com" target="_blank">
+                <i class="ri-mail-line"></i>
+            </a>
+        </li>
+        
+    </ul>
+    </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="/js/white.js"></script>
+
+
+
+</body>
+</html>
